@@ -30,6 +30,14 @@ dependencies {
 
 }
 
+//tasks.jar {
+//    manifest {
+//        attributes(
+//            "Main-Class" to "com.ironclad.MainKt"
+//        )
+//    }
+//}
+
 tasks.test {
     useJUnitPlatform()
 }

