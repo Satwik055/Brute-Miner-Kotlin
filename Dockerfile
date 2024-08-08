@@ -4,9 +4,13 @@ WORKDIR /Brute-Miner-Kotlin
 
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
-COPY gradlew .
 COPY src /Brute-Miner-Kotlin/src
+COPY gradle .
+COPY gradlew .
+COPY gradlew.bat .
 
-RUN ./gradlew build
+RUN chmod +x gradlew
 
-ENTRYPOINT ["./gradlew", "run"]
+RUN gradle build
+
+CMD ["gradle", "run"]
