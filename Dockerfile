@@ -8,5 +8,5 @@ COPY src /brute-miner-kotlin/src
 
 RUN gradle build
 
-ENTRYPOINT["gradle", "run"]
+CMD["gradle", "run"]
 
