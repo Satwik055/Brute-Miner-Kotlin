@@ -13,7 +13,7 @@ import kotlin.system.measureTimeMillis
 
 fun main() {
 
-    //This machine has a 6 cores hyper-threaded CPU,
+    //This machine has a 6 cores hyper-threaded CPU
     //so don't run more than 12 bruteForceTask on this machine
 
     bruteforceTask("2023/2502")
