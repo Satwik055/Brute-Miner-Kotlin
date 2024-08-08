@@ -1,12 +1,12 @@
 FROM gradle:7.6.0-jdk11 AS build
 
-WORKDIR /brute-miner-kotlin
+WORKDIR /Brute-Miner-Kotlin
 
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
-COPY src /brute-miner-kotlin/src
+COPY gradlew .
+COPY src /Brute-Miner-Kotlin/src
 
-RUN gradle build
+RUN ./gradlew build
 
-CMD["gradle", "run"]
-
+ENTRYPOINT ["./gradlew", "run"]
