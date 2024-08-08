@@ -1,6 +1,3 @@
-import groovy.xml.dom.DOMCategory.attributes
-import org.jetbrains.kotlin.com.intellij.openapi.vfs.StandardFileSystems.jar
-
 plugins {
     kotlin("jvm") version "2.0.0"
     id ("application")
@@ -29,14 +26,6 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:1.6.1")
 
 }
-
-//tasks.jar {
-//    manifest {
-//        attributes(
-//            "Main-Class" to "com.ironclad.MainKt"
-//        )
-//    }
-//}
 
 tasks.test {
     useJUnitPlatform()
